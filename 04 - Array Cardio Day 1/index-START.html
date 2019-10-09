@@ -36,19 +36,32 @@
       const birthDate = inventor.year;
       return birthDate >= 1500 && birthDate < 1600;
     })
+    console.log('inventors');
     console.table(inventors); // 对原数组无影响
+    console.log('fifteen');
     console.table(fifteen);
+    console.log('fifteenImprovment');
     console.table(fifteenImprovment);
-    console.log('=========分界线============')
+    console.log('=========map分界线============')
 
     // Array.prototype.map()
     // 2. Give us an array of the inventors' first and last names
     const fullName = inventors.map(inventor => `${inventor.first} ${inventor.last}`);
+    console.log('inventors');
     console.table(inventors); // 对原数组无影响
-    console.table(fullName);
+    console.log('fullName');
+    console.table( fullName);
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
+    const orderedByBirthDate = inventors.sort((a, b) => {
+      return a.year - b.year;
+    })
+    console.log('=========sort分界线============');
+    console.log('inventors');
+    console.table(inventors); // 对原数组有影响，是对原数组的操作
+    console.log('orderedByBirthDate');
+    console.table( orderedByBirthDate);
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live?
