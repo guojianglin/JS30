@@ -39,9 +39,13 @@
     console.table(inventors); // 对原数组无影响
     console.table(fifteen);
     console.table(fifteenImprovment);
+    console.log('=========分界线============')
 
     // Array.prototype.map()
     // 2. Give us an array of the inventors' first and last names
+    const fullName = inventors.map(inventor => `${inventor.first} ${inventor.last}`);
+    console.table(inventors); // 对原数组无影响
+    console.table(fullName);
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
