@@ -86,10 +86,26 @@
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
+    // ========> 1. anyway, NodeList is just a Array-like dataset, not includes all the methods Array has
+    // ========> 2. array and string dataset while has a methods includes()
 
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
+    console.log('people');
+    console.table(people);
+    const alpha = people.sort((lastOne, nextOne) => {
+      const [afirst, alast] = lastOne.split(', '); // 解构的妙用
+      const [bfirst, blast] = nextOne.split(', ');
+      if (alast > blast) {
+        return -1;
+      } else {
+        return 1;
+      }; // 字符串不能直接用减法
+    });
+    console.log('alpha');
+    console.table(alpha);
+
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
