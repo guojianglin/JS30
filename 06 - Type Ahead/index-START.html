@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Type Ahead 👀</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
   <form class="search-form">
@@ -14,9 +16,56 @@
       <li>or a state</li>
     </ul>
   </form>
-<script>
-const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+  <script>
 
-</script>
+    const inputNodeList = document.querySelector('.search');
+    const suggestions = document.querySelector('.suggestions');
+    const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+    let dataSet;
+
+    function matchTheSearch(matchTxt, dataSet) {
+      const regExpretion = new RegExp(matchTxt, 'gi');
+      const resultArray = dataSet.filter(
+        (location) => {
+          return regExpretion.exec(location.city);
+        });
+      renderToHtml(matchTxt, resultArray);
+    }
+
+    function renderToHtml(matchTxt, resArray) {
+      const regExpretion = new RegExp(matchTxt, 'gi');
+
+      const html = resArray.map(
+        (location) => {
+          const city = location.city.replace(regExpretion, `<span class="hl">${matchTxt}</span>`); 
+          const state = location.city.replace(regExpretion, `<span class="hl">${matchTxt}</span>`); 
+          return ` 
+            <li>
+              <span>${city}, ${state}</span>
+            </li>
+            `;
+        }
+      ).join('');
+
+      suggestions.innerHTML = html;
+    }
+
+    fetch(endpoint)
+      .then(blob => {
+        return blob.json();
+      })
+      .then(data => {
+
+        inputNodeList.addEventListener('change', function (evt) {
+          matchTheSearch(evt.target.value, data);
+        });
+
+        inputNodeList.addEventListener('keyup', function (evt) {
+          matchTheSearch(evt.target.value, data);
+        });
+      });
+
+  </script>
 </body>
+
 </html>
