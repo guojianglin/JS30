@@ -96,6 +96,61 @@
   </div>
 
 <script>
+  //=============初始版本====================
+  // const checkboxs = document.querySelectorAll('input[type=checkbox]');
+  // let lastChecked = null;
+  // let theKey = false;
+  // console.log(checkboxs);
+  // checkboxs.forEach((checkbox) => {
+  //   checkbox.addEventListener('click', (evt) => {
+  //     // console.log(evt);
+  //     if (evt.shiftKey && evt.target.checked) {
+  //       checkboxs.forEach((checkbox) => {
+  //         console.log(checkbox);
+  //         if (checkbox === lastChecked || checkbox === evt.target) {
+  //           console.log(111111111111111111);
+  //           theKey = !theKey;
+  //         }
+  //         if (theKey) {
+  //           checkbox.checked = true;
+  //         }
+  //       });
+  //     }
+  //     lastChecked = evt.target;
+  //   });
+  // });
+
+  //==============优化版本===================
+  const checkboxs = document.querySelectorAll('input[type=checkbox]');
+  let lastChecked = null;
+  let theKey = false;
+  
+  function handleCheckbox(evt) {
+
+    if (evt.shiftKey && evt.target.checked) {
+
+        checkboxs.forEach((checkbox) => {
+
+          console.log(checkbox);
+
+          if (checkbox === lastChecked || checkbox === evt.target) {
+            console.log(111111111111111111);
+            theKey = !theKey;
+          };
+
+          if (theKey) {
+            checkbox.checked = true;
+          };
+
+        });
+      };
+
+      lastChecked = evt.target;
+  };
+
+  checkboxs.forEach((checkbox) => {
+    checkbox.addEventListener('click', handleCheckbox);
+  });
 </script>
 </body>
 </html>
