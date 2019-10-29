@@ -27,12 +27,33 @@
     // So, how do we fix this? We take a copy instead!
 
     // one way
+    const playersCopy1 = players.slice();
+
+    // playersCopy1[3] = 'peterrrrrrr!';
+    // console.log(players);
+    // console.log(playersCopy1);
 
     // or create a new array and concat the old one in
 
+    const playersCopy2 = [].concat(players);
+    // playersCopy2[3] = 'peterrrrrrr!!!!';
+    // console.log(players);
+    // console.log(playersCopy2);
+
     // or use the new ES6 Spread
 
+    const playersCopy3 = [...players];
+    playersCopy3[3] = 'peterrrrr!!!!';
+    // console.log(players);
+    // console.log(playersCopy3);
+
     // now when we update it, the original one isn't changed
+    const playersCopy4 = Array.from(players);
+    playersCopy4[3] = 'peterrrrrrrrrrrrrr';
+    // console.log(players);
+    // console.log(playersCopy4);
+
+
 
     // The same thing goes for objects, let's say we have a person object
 
@@ -44,12 +65,36 @@
 
     // and think we make a copy:
 
+    const personCopy1 = Object.assign({}, person);
+    personCopy1.name = 'peterrrrrrrrr';
+    // console.log(person);
+    // console.log(personCopy1);
+
     // how do we take a copy instead?
 
     // We will hopefully soon see the object ...spread
+    const personCopy2 = {...person};
+    personCopy2.name = 'peterrrrrrrrr1';
+    // console.log(person);
+    // console.log(personCopy2);
+
 
     // Things to note - this is only 1 level deep - both for Arrays and Objects. lodash has a cloneDeep method, but you should think twice before using it.
 
+    const deepObject = {
+      name: 'Wes Bos',
+      age: 80,
+      subObj: {
+        anyThing: '1111'
+      }
+    };
+    const failDeepCopy = Object.assign({}, deepObject);
+    failDeepCopy.name = 'peterrrr';
+    failDeepCopy.subObj.addThing = 'addedsomething';
+    console.log(deepObject);
+    console.log(failDeepCopy);
+
+    // oneEasy is to use JSON.stringify() and than JSON.parse(); but if an object has high level deep, it is not good to use this way!!!!
   </script>
 
 </body>
