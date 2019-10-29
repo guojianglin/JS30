@@ -28,7 +28,50 @@
 <script>
   const addItems = document.querySelector('.add-items');
   const itemsList = document.querySelector('.plates');
-  const items = [];
+  const items = JSON.parse(localStorage.getItem('items')) || [];
+  const text = document.querySelector('[type=text]');
+
+  function addItemsSubmit(e) {
+    if (e) e.preventDefault();
+
+    const val = text.value === '' ? undefined : text.value;
+    if (val !== undefined) items.push({text:val, checked: false});
+
+    renderHtml();
+
+    const itemLocal = JSON.stringify(items);
+
+    localStorage.setItem('items', itemLocal);
+
+    e.target.reset();
+  }
+
+  function renderHtml() {
+    const htmlArr = items.map((item, i) => {
+      console.log(item.checked);
+      return `
+      <li>
+        <input type="checkbox" id="item${i}" data-index="${i}" ${item.checked ? 'checked' : ''}>
+        <label for="item${i}" >${item.text}</label>
+      </li>
+      `
+    });
+    itemsList.innerHTML = htmlArr.join('');
+  }
+
+  function toggleCheck(e) {
+    if (!e.target.matches('input')) return;
+    console.dir(e.target.checked);
+    const index = e.target.dataset.index;
+    console.log(index);
+    items[index].checked = e.target.checked;
+    const itemLocal = JSON.stringify(items);
+    localStorage.setItem('items', itemLocal);
+  }
+
+  addItems.addEventListener('submit', addItemsSubmit);
+  itemsList.addEventListener('click', toggleCheck);
+  renderHtml();
 
 </script>
 
