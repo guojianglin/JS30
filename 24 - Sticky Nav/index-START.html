@@ -54,6 +54,19 @@
   </div>
 
 <script>
+  const nav = document.querySelector('#main');
+  const header = document.querySelector('header');
+  function handleScroll() {
+    if (window.scrollY > header.offsetHeight) {
+      document.body.style.paddingTop = `${nav.offsetHeight}px`;
+      nav.classList.add('fixed-nav')
+
+    } else {
+      document.body.style.paddingTop = `0px`;
+      nav.classList.remove('fixed-nav');
+    }
+  }
+  window.addEventListener('scroll', handleScroll);
 
 </script>
 
