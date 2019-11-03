@@ -35,6 +35,43 @@
   </div>
 
 <script>
+  const wraper = document.querySelector('.items');
+  let isDown = false;
+  const margin = wraper.offsetLeft;
+  let start;
+  let scrollLeft;
+
+  function handledown(e) {
+    isDown = true;
+    start = e.pageX - margin;
+    this.classList.add('active');
+    scrollLeft = this.scrollLeft;
+  }
+
+  function handleup() {
+    isDown = false;
+    this.classList.remove('active');
+  }
+
+
+  function handleleave() {
+    isDown = false;
+    this.classList.remove('active');
+  }
+
+  function handlemove(e) {
+    if (isDown) {
+      const current = e.pageX - margin;
+      const x = current - start;
+      wraper.scrollLeft = scrollLeft - x;
+    }
+  }
+
+  wraper.addEventListener('mousedown', handledown);
+  wraper.addEventListener('mouseup', handleup);
+  wraper.addEventListener('mousemove', handlemove);
+  wraper.addEventListener('mouseleave', handleleave);
+
 </script>
 
   </body>
